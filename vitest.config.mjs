@@ -5,6 +5,7 @@ import { resolve } from 'path';
 export default defineConfig({
   plugins: [react()],
   test: {
+    globals: true,
     environment: 'jsdom',
     include: ['**/*.test.{ts,tsx}'],
     setupFiles: ['./vitest.setup.ts'],
@@ -12,6 +13,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './'),
+      '\\.css$': './__mocks__/styleMock.ts',
     },
   },
 }); 
