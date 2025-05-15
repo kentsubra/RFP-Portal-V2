@@ -11,7 +11,7 @@ import { useToast } from '@/components/ui/use-toast';
 import ClientDetailsForm from './wizard-steps/ClientDetailsForm';
 import RfpLinksForm from './wizard-steps/RfpLinksForm';
 import DealInfoForm from './wizard-steps/DealInfoForm';
-import { useCreateOpportunity } from '@/lib/hooks/useOpportunityActions';
+import { useCreateOpportunity } from '@/lib/hooks/useCreateOpportunity';
 import { useSession } from 'next-auth/react';
 
 // Step identifiers
@@ -68,7 +68,7 @@ export default function NewOpportunityWizard({ isOpen, onClose }: NewOpportunity
     mode: 'onChange',
   });
 
-  const { handleSubmit, trigger, formState: { isValid, errors } } = methods;
+  const { handleSubmit, trigger, formState: { isValid } } = methods;
 
   // Handle navigation between steps
   const handleNext = async () => {
@@ -125,10 +125,10 @@ export default function NewOpportunityWizard({ isOpen, onClose }: NewOpportunity
       } else {
         throw new Error(result.error || 'An error occurred');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
-        description: error.message || "Failed to create opportunity",
+        description: error instanceof Error ? error.message : "Failed to create opportunity",
         variant: "destructive",
       });
     } finally {

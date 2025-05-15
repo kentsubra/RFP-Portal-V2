@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { db } from '@/lib/firebase';
-import { collection, getDocs, query, where, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, getDocs, query, where, addDoc } from 'firebase/firestore';
 import { opportunityConverter, OPPORTUNITIES_COLLECTION } from '@/lib/converters/opportunity';
 import { createOpportunitySchema } from '@/types/opportunity';
 
 /**
  * GET /api/opportunities - Get opportunities for the current user
  */
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     // Get the user session
     const session = await getServerSession();

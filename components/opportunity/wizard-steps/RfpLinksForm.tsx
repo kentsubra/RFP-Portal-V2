@@ -1,7 +1,6 @@
 'use client';
 
 import { useFormContext } from 'react-hook-form';
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PlusCircle, X } from 'lucide-react';
@@ -10,7 +9,7 @@ import { OpportunityFormData } from '../NewOpportunityWizard';
 
 export default function RfpLinksForm() {
   const [newLink, setNewLink] = useState('');
-  const { control, watch, setValue, formState: { errors } } = useFormContext<OpportunityFormData>();
+  const { watch, setValue } = useFormContext<OpportunityFormData>();
   
   const rfpLinks = watch('rfpLinks') || [];
 
@@ -31,7 +30,7 @@ export default function RfpLinksForm() {
     try {
       new URL(url);
       return true;
-    } catch (e) {
+    } catch {
       return false;
     }
   };
@@ -47,7 +46,7 @@ export default function RfpLinksForm() {
         <Input
           value={newLink}
           onChange={(e) => setNewLink(e.target.value)}
-          placeholder="https://example.com/rfp-document"
+          placeholder="Enter URL"
           className="flex-1"
         />
         <Button 

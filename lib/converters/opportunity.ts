@@ -32,6 +32,8 @@ export const opportunityConverter: FirestoreDataConverter<OpportunityBase> = {
 
   // Convert an Opportunity object to a Firestore document
   toFirestore(opportunity: OpportunityBase): OpportunityDoc {
+    // Destructure ID but don't use it since Firestore manages document IDs separately
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, ...data } = opportunity;
     
     // Ensure dates are handled correctly

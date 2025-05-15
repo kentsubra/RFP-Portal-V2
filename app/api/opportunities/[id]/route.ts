@@ -121,6 +121,8 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
     }
 
     // Get the validated data
+    // Destructure ID but don't use it as it's already available in the URL params
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id: _, ...updateData } = validationResult.data;
 
     // Update document
