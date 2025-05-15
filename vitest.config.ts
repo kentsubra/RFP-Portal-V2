@@ -8,10 +8,14 @@ export default defineConfig({
     environment: 'jsdom',
     include: ['**/*.test.{ts,tsx}'],
     setupFiles: ['./vitest.setup.ts'],
+    css: false,
   },
   resolve: {
     alias: {
       '@': resolve(__dirname, './'),
     },
   },
+  css: {
+    postcss: false
+  }
 }); 
