@@ -25,7 +25,7 @@ vi.mock('@/components/ui/use-toast', () => ({
 }));
 
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import path from 'path';
 
@@ -59,6 +59,7 @@ describe('OpportunityDrawer', () => {
     keyNotes: 'Test notes',
     grossMargin: 20,
     assignedTo: 'Test User',
+    status: 'New',
     createdAt: new Date('2023-01-01'),
     updatedAt: new Date('2023-01-02'),
   };
@@ -183,6 +184,8 @@ describe('OpportunityDrawer', () => {
           },
           body: JSON.stringify(values),
         });
+        // Call onClose after the fetch completes
+        await Promise.resolve(); // Ensure we're in the next microtask
         onCloseMock();
       }),
     }));
@@ -201,10 +204,11 @@ describe('OpportunityDrawer', () => {
 
     // Click the Save button
     const saveButton = screen.getByText('Save Changes');
-    fireEvent.click(saveButton);
-
-    // Wait for Promise resolution
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await act(async () => {
+      fireEvent.click(saveButton);
+      // Wait for all promises to resolve
+      await new Promise(resolve => setTimeout(resolve, 0));
+    });
 
     // Check if onClose was called
     expect(onCloseMock).toHaveBeenCalled();
