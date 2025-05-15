@@ -67,8 +67,10 @@ export async function GET(request: Request, context: RequestContext) {
 }
 
 export async function PATCH(request: Request, context: RequestContext) {
-  const { id: _id } = context.params;
-  const _data = await request.json();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { id } = context.params;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const data = await request.json();
   
   // In a real app, validate data and update in database
   // For mock, we just return success
@@ -77,7 +79,8 @@ export async function PATCH(request: Request, context: RequestContext) {
 }
 
 export async function DELETE(request: Request, context: RequestContext) {
-  const { id: _id } = context.params;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { id } = context.params;
   
   // In a real app, delete from database
   // For mock, we just return success
